@@ -1,0 +1,24 @@
+<%= render "users/shared/header_footer" do %>
+  <%= render "which_post/pager" %>
+  <% if @contact.empty? %>
+    <p>There are no messages here.</p>
+  <% else %>
+    <% @contact.each do |user| %>
+      <div class = "panel panel-default">
+        <div class = "panel-heading">
+          <div class = "panel-title">
+            <span class = "glyphicon glyphicon-user" aria-hidden = "true"></span>
+            <%= user.name %><br>
+            <span class = "glyphicon glyphicon-calendar" aria-hidden = "true"></span>
+            <%= time_tag user.created_at %>
+          </div>
+        </div>
+        <%= render "posts/body", body: user.message.strip %>
+        <a href="<%=contact_path(user)%>" data-turbo-method = "delete" data-turbo-confirm = "Sure to delete?" class="btn btn-warning">
+          <span class = "glyphicon glyphicon-trash" aria-hidden = "true"></span>
+          Delete Message
+        </a>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,11 @@
+<%= render "users/shared/header" %>
+<div class = "container">
+  <div class="blog-header">
+    <h2 class="blog-title">Members Only</h2>
+    <p class="lead blog-description">Share Your Stories.</p>
+  </div>
+  <% which_flash = notice ? "info" : alert ? "warning" : nil %>
+  <%= render "users/shared/flash", which_flash: which_flash %>
+  <%= yield %>
+</div>
+<%= render "users/shared/footer" %>

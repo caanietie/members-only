@@ -1,0 +1,15 @@
+<%= form_with model: post do |form| %>
+  <%= render "users/shared/error_messages", resource: post %>
+  <div class = "form-group">
+    <%= form.label :title, class: "control-label" %>
+    <%= form.text_field :title, class: "form-control", required: true %>
+  </div>
+  <div class = "form-group">
+    <%= form.label :body, class: "control-label" %>
+    <%= form.text_area :body, class: "form-control", rows: 5, required: true %>
+  </div>
+  <div>
+    <%= form.submit action, class: "btn btn-success form-control", style: "margin-bottom: 5px" %>
+    <%= link_to "Back", :back, class: "btn btn-info form-control", role: :button %>
+  </div>
+<% end %>

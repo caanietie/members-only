@@ -1,0 +1,18 @@
+<%= render "users/shared/header_footer" do %>
+  <h2>Resend confirmation instructions</h2>
+
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, data: {turbo: false}) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
+
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, class: "form-control",  value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Resend confirmation", class: "form-control" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+<%= end %>

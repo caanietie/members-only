@@ -1,0 +1,34 @@
+<% if posts.nil? or posts.empty? %>
+  <p>You do not have any post.</p>
+<% else %>
+  <% posts.each do |post| %>
+    <% username = post.user.username %>
+    <div class="blog-post panel panel-default">
+      <div class = "panel-heading">
+        <h4 class="blog-post-title"><%= post.title %></h4>
+        <% if user_signed_in? %>
+          <a href="<%=user_path(username)+'?p=1'%>" class="blog-post-meta">
+            <span class = "glyphicon glyphicon-user" aria-hidden = "true"></span>
+            <%=username %>
+          </a><br>
+        <% end %>
+        <span class = "glyphicon glyphicon-calendar blog-post-meta" aria-hidden = "true"></span>
+        <%= time_tag post.created_at, class: "blog-post-meta" %>
+      </div>
+      <div class = "panel-body">
+        <p><%= post.body.lines[0] %>...</p> <%# The first paragraph %>
+        <div style = "display:flex;gap:10%;margin-bottom:2.5%">
+          <div>
+              <span class = "badge"><%= post.comments.length %></span>
+              <span class = "glyphicon glyphicon-comment" aria-hidden = "true"></span>
+          </div>
+          <div>
+              <span class = "badge"><%= post.favourites.length %></span>
+              <span class = "glyphicon glyphicon-heart" aria-hidden = "true"></span>
+          </div>
+        </div>
+        <%= link_to "Continue reading", post_path(post), class: "btn btn-default", role: :button %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

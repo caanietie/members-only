@@ -1,0 +1,37 @@
+<%= render "users/shared/header_footer" do %>
+  <h2>Profile Page</h2>
+  <div>
+    <% if @user.nil? %>
+      No user exist with the username.
+    <% else %>
+      <%= image_tag "avatar.png", size: "110x110", alt: "Profile Picture", class: "img img-responsive img-circle" %>
+      <p>Username: <%= @user.username %></p>
+      <% if current_user.username.eql? params[:id] %>
+        <%= button_to "Edit User Profile", edit_user_registration_path, method: :get, class: "btn btn-default", role: "button" %>
+      <% end %>
+      <%# TODO if user has a pinned post, it goes here %>
+      <%= render "post_fav", p: params[:p], username: @user.username, posts: @posts %>
+    <% end %>
+  </div>
+<% end %>
+<script type = "text/javascript" defer>
+  // const posts = document.querySelector(".posts");
+  // const favs = document.querySelector(".favourites");
+  // favs.setAttribute("hidden", "hidden");
+  // const postHandle = document.querySelector(".post-handle");
+  // const favHandle = document.querySelector(".favourite-handle");
+  // postHandle.onclick = function(event){
+      // event.preventDefault();
+      // postHandle.parentNode.setAttribute("class", "active");
+      // favHandle.parentNode.removeAttribute("class");
+      // posts.removeAttribute("hidden");
+      // favs.setAttribute("hidden", "hidden");
+  // };
+  // favHandle.onclick = function(event){
+      // event.preventDefault();
+      // favHandle.parentNode.setAttribute("class", "active");
+      // postHandle.parentNode.removeAttribute("class");
+      // favs.removeAttribute("hidden");
+      // posts.setAttribute("hidden", "hidden");
+  // };
+</script>

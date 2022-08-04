@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="<%= :active if p.eql? ?1 %>">
+    <a href="<%= which_post_path(p: 1) %>">Posts By Me</a>
+  </li>
+  <li role="presentation" class = "<%= :active if p.eql? ?0 %>">
+    <a href="<%= which_post_path(p: 0) %>">Posts By Others</a>
+  </li>
+  <% if current_user.id.eql? 1 %>
+    <li role="presentation" class = "<%= :active if params[:controller].eql? 'contacts' %>">
+      <a href="<%= contacts_path %>">Messages</a>
+    </li>
+  <% end %>
+</ul>

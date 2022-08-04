@@ -1,0 +1,26 @@
+<div style = "margin-top:5%">
+  <% if comments.nil? or comments.empty? %>
+    <p>There are no comments yet.</p>
+  <% else %>
+    <% comments.each do |comment| %>
+      <% commenter = comment.commenter %>
+      <div class = "panel panel-default">
+        <div class = "panel-heading">
+          <h5 class = "panel-title">
+            <span class= "glyphicon glyphicon-user" aria-hidden="true"></span>
+            <%= link_to commenter, user_path(commenter)+"?p=1" %>
+          </h5>
+          <span class= "glyphicon glyphicon-calendar" aria-hidden="true"></span>
+          <%= time_tag comment.created_at %>
+        </div>
+        <%= render "body", body: comment.body.strip %>
+        <% if comment.commenter.eql? current_user.username %>
+          <!-- or the admin -->
+          <a href="<%=post_comment_path(comment.post_id, comment)%>" data-turbo-method="delete" data-turbo-confirm="Sure to delete?"  class="btn btn-warning" role="button">
+            <span class = "glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+          </a>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

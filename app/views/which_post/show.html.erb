@@ -1,0 +1,4 @@
+<%= render "users/shared/header_footer" do %>
+  <%= render "which_post/pager", p: params[:p] %>
+  <%= render "posts/post", posts: @posts %>
+<% end %>

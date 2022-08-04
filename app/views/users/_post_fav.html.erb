@@ -1,0 +1,30 @@
+<div style = "margin-top:5%">
+  <ul class="nav nav-tabs" role="tablist">
+    <% if p.eql? ?1 %>
+      <li role="presentation" class="active">
+    <% else %>
+      <li role = "presentation">
+    <% end %>
+        <a href="<%=user_path(username)+'?p=1'%>">Posts</a>
+      </li>
+    <% if p.eql? ?0 %>
+      <li role="presentation" class="active">
+    <% else %>
+      <li role = "presentation">
+    <% end %>
+        <a href="<%=user_path(username)+'?p=0'%>">Favourites</a>
+      </li>
+  </ul>
+  <div class="list-group">
+    <% if posts.nil? or posts.empty? %>
+      <p style = "margin:4% 0"><%= username %> has no <%= p.eql?(?0) ? "favourites" : "posts" %></p>
+    <% else %>
+      <% posts.each do |post| %>
+        <a href="<%= post_path post %>" class="list-group-item">
+          <h4 class="list-group-item-heading"><%= post.title %></h4>
+          <p class="list-group-item-text"><%= post.body[0 .. 100] %>...</p>
+        </a>
+      <% end %>
+    <% end %>
+  </div>
+</div>

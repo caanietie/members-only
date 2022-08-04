@@ -1,0 +1,39 @@
+<%= render "users/shared/header_footer" do %>
+  <h2>Profile Page</h2>
+  <div>
+    <% if @user.nil? %>
+      No user exist with the username.
+    <% else %>
+      <%= image_tag "avatar.png", size: "110x110", alt: "Profile Picture", class: "img img-responsive img-circle" %>
+      <p>Username: <%= @user.username %></p>
+      <% if current_user.username.eql? params[:u] %>
+        <%= button_to "Edit User Profile", edit_user_registration_path, method: :get, class: "btn btn-default", role: "button" %>
+      <% end %>
+      <% num_posts = @user.posts.length %>
+      <p>
+      <h4>Posts By the user <%= "(#{num_posts} posts)" if num_posts.nonzero? %></h4>
+      <% if num_posts.nonzero? %>
+        <ul>
+          <% @user.posts.each do |post| %>
+            <li><p><%= link_to post.title, post_path(post) %></p></li>
+          <% end %>
+        </ul>
+      <% else %>
+        User has no post yet
+      <% end %>
+      </p>
+      <p>
+      <h4>Favourite Post</h4>
+      <% if @user.favourites.length.nonzero? %>
+        <ul>
+          <% @user.favourites.each do |fav| %>
+            <li><p><%= link_to fav.post.title, post_path(fav.post) %></p></li>
+          <% end %>
+        </ul>
+      <% else %>
+        User does not have favourite post yet
+      <% end %>
+      </p>
+  </div>
+  <% end %>
+<% end %>

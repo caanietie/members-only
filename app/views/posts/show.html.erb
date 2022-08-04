@@ -1,0 +1,43 @@
+<%= render "users/shared/header_footer" do %>
+  <%= render "which_post/pager", p: current_user.eql?(@post.user) ? ?1 : ?0 %>
+  <div class = "blog-post">
+    <div class = "panel panel-default">
+      <div class = "panel-heading">
+        <h4 class="blog-post-title"><%= @post.title %></h4>
+        <% username = @post.user.username %>
+        <a href="<%=user_path(username)+'?p=1'%>" class="blog-post-meta">
+          <span class = "glyphicon glyphicon-user" aria-hidden = "true"></span> <%=username%>
+        </a><br>
+        <span class = "glyphicon glyphicon-calendar blog-post-meta" aria-hidden = "true"></span>
+        <%= time_tag @post.created_at, class:"blog-post-meta" %>
+        <div>
+          <a href="<%=post_favourite_path(@post)%>" class = "btn btn-default" data-turbo-method="post">
+            <span class="badge"><%= @post.favourites.length %></span>
+            <span class = "glyphicon glyphicon-heart" aria-hidden="true"></span>
+          </a>
+          <% if current_user.eql? @post.user %>
+            <a href="<%=edit_post_path%>" class="btn btn-default">
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              Edit
+            </a>
+<%# TODO if user has not pin post show pin. active when pinned %>
+<!--
+<a href="#" class="btn btn-default">
+<span class = "glyphicon glyphicon-pushpin" aria-hidden = "true"></span>
+</a>
+-->
+            <a href="<%=post_path%>" class="btn btn-warning" data-turbo-method="delete" data-turbo-confirm="Sure to delete post?">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </a>
+          <% end %>
+        </div>
+      </div>
+      <%= render "body", body: @post.body.strip %>
+    </div>
+    <div style = "margin-top:5%">
+      <h3><span class = "glyphicon glyphicon-comment" aria-hidden="true"></span> Comments</h3>
+      <%= render "comments/form", post: @post %>
+      <%= render "comments/comment", comments: @post.comments %>
+    </div>
+  </div>
+<% end %>
