@@ -15,7 +15,7 @@ users = User.create([
   { id: 11, username: "harold_percival", email: "harold@percival.com", password: "harold_percival" }
 ])
 11.times do |n|
-  File.open("story#{n+1}.txt") do |file|
-    Post.create {user_id: n+1, title: file.readline, body: file.read}
+  File.open("db/story#{n+1}.txt") do |file|
+    Post.create({user_id: n+1, title: file.readline, body: file.read})
   end
 end
